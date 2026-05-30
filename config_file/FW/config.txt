@@ -1,0 +1,537 @@
+!config
+authorized-table audit
+    description Default authority table used for audit administrator 
+    authorized read log-config 
+    authorized write log-config 
+!
+authorized-table admin
+    description Default authority table with all authority enable 
+    authorized read all 
+    authorized write all 
+!
+authorized-table useradmin
+    description Default authority table used for useradmin administrator 
+    authorized read admin-user 
+    authorized write admin-user 
+!
+authorized-table 备份程序权限
+    authorized read system-config 
+    authorized read admin-user 
+    authorized read updata 
+    authorized read log-config 
+    authorized read log-read 
+!
+!
+hardware watchdog disable
+!
+admin password 10
+user password complexity-level 2
+user administrator audit local secret $I/1sOFUP5vFFiHTPS3+kTkkTh9DqaLthpw4V4JYohYGheIvXv6w67JeJckyUcmGyLY6KsSUg2mXT2PJw4PCsOA== authorized-table audit  
+user administrator audit description default audit administrator
+user administrator admin local secret $UggoGV7EVUh06XKhiR78rmldYWxCzDx4tOVMb68J+OXqBqcmYTQ7oFS8DxVxVMZOusTOK3i/Pp+858P6gHEb/Q== authorized-table admin  
+user administrator admin authorized-address first 192.168.42.128/26
+user administrator admin authorized-address second 192.168.33.0/25
+user administrator admin description default super administrator
+user administrator useradmin local secret $3GLX5etsqU/EjgE9JshL5nVAm0aXt0Z4oTAuODZ46IIATYPHX48qNvGF1MHphRlSjRUyp73Sp+nbrY6KHD4YbQ== authorized-table useradmin  
+user administrator useradmin authorized-address first 192.168.42.179/32
+user administrator useradmin authorized-address second 192.168.33.12/32
+user administrator useradmin description default user administrator
+user administrator sshbackup local secret $UggoGV7EVUh06XKhiR78rmldYWxCzDx4tOVMb68J+OXqBqcmYTQ7oFS8DxVxVMZOusTOK3i/Pp+858P6gHEb/Q== authorized-table 备份程序权限  
+user administrator sshbackup authorized-address first 192.168.42.179/32
+user administrator sshbackup authorized-address second 192.168.42.159/32
+user administrator sshbackup authorized-address third 192.168.33.12/32
+auth-code is-need disable
+!
+!
+admin auth retry 10 
+admin auth block 1200 
+guish maxclient 5 
+password timeout 90 
+guish timeout 5 
+language chinese 
+!
+web-client-verify disable
+
+server http-port 10080 https-port 20443
+
+server-ssh port 10022
+
+server-telnet port 10023
+
+!
+
+log av memory upto notifications
+log av server upto informational
+log ips memory upto notifications
+log ips server upto informational
+log attack memory upto notifications
+log attack server upto informational
+log if-info memory upto notifications
+log if-info server upto informational
+log ha memory upto notifications
+log ha server upto informational
+log system-info memory upto notifications
+log system-info server upto informational
+log scan memory upto notifications
+log scan server upto informational
+log filter memory upto notifications
+log filter server upto informational
+log vrrp memory upto notifications
+log vrrp server upto informational
+log url server upto informational
+log flood memory upto notifications
+log flood server upto informational
+log warningevent memory upto notifications
+log warningevent server upto informational
+log web-security memory upto notifications
+log web-security server upto informational
+log antiarp memory upto notifications
+log antiarp server upto informational
+log blacklist memory upto notifications
+log blacklist server upto informational
+log threat-intelligence memory upto notifications
+log threat-intelligence server upto informational
+log local-policy memory upto notifications
+log local-policy server upto informational
+log weak-password memory upto notifications
+log weak-password server upto informational
+log whitelist memory upto notifications
+log whitelist server upto informational
+log iot memory upto notifications
+log iot server upto informational
+log domain-blacklist memory upto notifications
+log domain-blacklist server upto informational
+log bruteattack memory upto notifications
+log bruteattack server upto informational
+log database 10
+vcloud encrypt enable
+log server addr 192.168.42.151 port 514 enable
+!
+forward-log-limit 20
+df-flag-check disable
+healthcheck dns-requery-interval 60
+address-domain-timer set 20
+address-domain-up-num set 20
+address-domain-member-rtt set 3600
+!
+timezone 57 
+!
+cacenter ca crl config period 30
+!
+!
+detect-stat limit-cpu 80
+detect-stat limit-insert-db 10000
+report engine statistics enable
+report db-size 1000
+!
+!
+!
+!
+interface bvi1
+ aliasname brg1
+!
+interface bvi2
+ aliasname brg2
+!
+interface ge0/0
+ ip address 192.33.60.2/24
+ allow https
+ allow ssh
+ allow ping
+!
+interface ge0/1
+!
+interface ge0/2
+!
+interface ge0/3
+!
+interface ge0/4
+!
+interface ge0/5
+!
+interface ge0/6
+ bridge-group 1
+!
+interface ge0/7
+ bridge-group 1
+!
+interface ge0/8
+ bridge-group 2
+!
+interface ge0/9
+ bridge-group 2
+!
+interface xge1/1
+!
+interface xge1/2
+!
+interface lo
+!
+!!
+!
+!
+service 高危端口
+ tcp dest 445 source 1 65535
+ tcp dest 135 139 source 1 65535
+ tcp dest 5938 source 1 65535
+!
+ips set All
+ description 除网络娱乐类之外的事件
+ips set Mid_high
+ description 包含中高级事件
+ips set Zombie_Worm_Trojan
+ description 包含僵尸、木马、蠕虫事件
+ips set Web-set
+ description 网页相关的攻击事件
+!
+!
+!
+!
+ipsec-ha disable
+fast-ipsec disable
+ipsec multi-core-balance disable
+ipsec-allow-nat disable
+ipsec-high-performance disable
+sslvpn
+sysmon
+!
+snmp
+ community JBfw_wb
+!
+
+healthcheck ICMP icmp
+ interval 16
+ maxretrys 3
+ timeout 5
+
+ip route 0.0.0.0/0 192.33.60.1
+!
+!
+!
+!
+!
+global-dest-persist disable
+global-dest-persist timeout 30
+global-dest-persist mask 255.255.255.0
+global-ipv6-dest-persist mask 64
+!
+ftp_check enable
+sip_check disable
+h323_check disable
+rtsp_check disable
+pptp_check disable
+oracle_check disable
+!
+!
+ospf-config
+!
+ospf6-config
+!
+blacklist-group default enable
+blacklist-group non_manually_addition_block enable
+blacklist-group abnormal_assets_block enable valid_time_type min timeout 0 configtime 23-08-14 02:23:14
+!
+blacklist enable
+blacklist timeout-del-off
+blacklist match type sip
+domain-blacklist disable
+whitelist disable
+whitelist match type sip
+!
+!
+ct-log regular-report-num 1000
+!
+iot-terminal-detect udp-ports 53,69,123,161,162,520,1701,1812,
+iot-terminal-detect switch-linkage off
+iot-terminal-detect switch-linkage-timeout 1
+iot-terminal-detect switch-linkage-interval 30
+iot-terminal-detect cpu-limit 50
+!
+ tcp full-connect-state all-connect
+ tcp-congestion-control-bbr disable 
+tianxun-interaction
+!
+bind-interface disable
+!
+!
+!
+!
+!
+apt-file *.exe enable
+apt-file *.dll enable
+apt-file *.sys enable
+apt-file *.js enable
+apt-file *.pdf enable
+!
+apt-file any disable
+!
+!
+web-security-profile default sql-enable deny xss-enable deny
+!
+tcp profile tcp
+  set rst_timeout
+  set tw_recycle
+  set delayed_ack
+  no set proxy_mss
+  no set proxy_opt
+  no set nagle
+  no set deferred
+  no set ts
+  no set wscale
+  no set sack
+
+ssl-client-profile sslclient
+ certificate default 12345678
+ ciphers DEFAULT
+ options 2048
+ ssl-mod disable
+ cache-size 262144
+ cache-timeout 3600
+ alert-timeout 60
+ handshake-timeout 60
+ renegotiation disable
+ renegotiation-timeout 0
+ renegotiation-size 0
+ renegotiation-record 10
+ unclean-shutdown enable
+ strict-resume disable
+ non-ssl disable
+ client-auth ignore
+ auth-travel-depth 2
+!
+ssl-server-profile sslserver
+ certificate default 
+ ciphers DEFAULT
+ options 536872960
+ ssl-mod disable
+ cache-size 262144
+ cache-timeout 3600
+ alert-timeout 60
+ handshake-timeout 60
+ renegotiation disable
+ renegotiation-timeout 0
+ renegotiation-size 0
+ unclean-shutdown enable
+ strict-resume disable
+ client-auth ignore
+ auth-travel-depth 2
+!
+	proxy-ssl ca-cert-push-interval 1
+proxy-ssl whitelist-ip-days 1
+flow-update-interval 10
+!
+anti-arp broadcast interval 1
+anti-arp flood block-time 60
+anti-arp flood threshold 300
+!
+!
+default-local-policy action accept
+local-policy-match disable
+!
+
+ha-group
+ unitID 1
+ groupID 0
+
+ sysmon-switch default
+ float mac disable
+!
+gratuitous-arp 30
+!
+na-ndp 30
+!
+dns-proxy 
+!
+dns-proxy 
+ dns-proxy ip 0.0.0.0 port 53
+ algorithm rr
+ all-vlan disable
+!
+!
+no dns forwarder
+!
+dns forwarder max-cache 200
+!
+!
+!
+!
+firewall policy 2 
+ action deny
+ enable
+ firewall-policy-group default
+ src-zone any
+ dst-zone any
+ src-addr any
+ dst-addr any
+ service 高危端口
+ timerange always
+ user any
+ app any
+firewall policy 1 
+ action permit
+ name any
+ enable
+ firewall-policy-group default
+ src-zone any
+ dst-zone any
+ src-addr any
+ dst-addr any
+ service any
+ timerange always
+ user any
+ app any
+!
+!
+default-policy action drop
+policy-match enable
+!
+!
+!
+av-file *.exe enable
+av-file *.dll enable
+av-file *.sys enable
+av-file *.js enable
+av-file *.docx enable
+av-file *.doc enable
+av-file *.xlsx enable
+av-file *.xls enable
+av-file *.pptx enable
+av-file *.ppt enable
+av-file *.jar enable
+av-file *.pdf enable
+av-file *.eml enable
+av-file *.lnk enable
+av-file *.py enable
+av-file *.pyc enable
+av-file *.zip disable
+av-file *.rar disable
+av-file *.gzip disable
+av-file *.dmg disable
+!
+av-file any disable
+!
+av-profile All protocol http.smtp.imap.ftp.pop3 action deny 
+!
+threat-intelligence update-time 25
+!
+malfile-detect All                 
+ action deny
+ malfile-protocol http
+ malfile-protocol pop3
+ malfile-protocol smtp
+ malfile-protocol imap
+ malfile-protocol ftp
+!
+malfile *.exe enable
+malfile *.dll enable
+malfile *.sys enable
+malfile *.js enable
+malfile *.docx enable
+malfile *.doc enable
+malfile *.xlsx enable
+malfile *.xls enable
+malfile *.pptx enable
+malfile *.ppt enable
+malfile *.jar enable
+malfile *.pdf enable
+malfile *.eml enable
+malfile *.lnk enable
+malfile *.py enable
+malfile *.pyc enable
+malfile *.zip disable
+malfile *.rar disable
+malfile *.gzip disable
+malfile *.dmg disable
+!
+!
+protect-policy-match enable
+!
+kernel-tcp-syncookies enable
+!
+!
+stated disable
+stated interval 300
+stated retention 3
+!
+!
+!
+woc accelerate nodelay enable
+woc accelerate fast-send 0
+woc accelerate interval 10
+woc accelerate timer-interval 40
+woc accelerate resend 2
+woc accelerate nc disable
+woc accelerate sndwnd 1024
+woc accelerate rcvwnd 2048
+woc accelerate minrto 2500
+woc accelerate cpu 70
+woc accelerate memory 70
+woc accelerate item-limit 25000
+woc accelerate halfopen disable
+woc accelerate packet-loss-rate enable
+woc accelerate interface disable
+!
+waf set ALL
+ description 包含全部事件
+waf set HIGH
+ description 包含高风险事件
+waf set MID
+ description 包含中风险事件
+waf set LOW
+ description 包含低风险事件
+!
+!
+waf check-url-maxlen 2048
+waf check-host-maxlen 512
+waf check-cookie-maxlen 100
+waf check-user-agent-maxlen 512
+waf check-content-type-maxlen 64
+waf check-referer-maxlen 512
+waf check-msgbody-maxlen 730
+waf check-pkt-num 10
+waf check-req-num 2
+waf check-resp-num 2
+waf check-url-param-num 3
+waf check-body-num 6
+scanner-interaction
+!
+change-vsys root
+!end
+#APP PRF CONFIG FILE
+#APP KEYWORD CONFIG FILE
+#URL CUSTOM CONFIG FILE
+#每个自定义url对象的名称不能超过63个字符
+#每个自定义url对象的描述不能超过127个字符
+#每个自定义url对象的域名不能超过127个字符
+#每个自定义url对象的域名列表中不能超过128个域名
+#URL GROUP CONFIG FILE
+#WEB ALERT CONFIG FILE
+
+#IPS AV CONFIG FILE
+[IPS PREDEFINE CONFIG]
+
+[IPS CUSTOM SET CFG CONFIG]
+#IPS CUS CONFIG FILE
+#WOC CONFIG FILE
+[WOC_CONF]
+name=compress_accelerate
+compress_on=1
+kcp_on=1
+pre_flag=1
+
+[WOC_CONF]
+name=accelerate
+kcp_on=1
+pre_flag=1
+
+[WOC_CONF]
+name=compress
+compress_on=1
+pre_flag=1
+
+#WAF CUSTOM CONFIG FILE
+#WAF CUS SET CONFIG FILE
+[WAF PREDEFINE CONFIG]
+
+[WAF CUSTOM CONFIG]
+#WAF VERIFY CONFIG FILE
