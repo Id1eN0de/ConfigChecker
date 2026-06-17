@@ -1,9 +1,9 @@
 ---
 name: "\U0001F41B Bug 报告"
-about: 帮助我们不断完善，不断提高
-title: ''
+about: 不断完善
+title: "[bug]:"
 labels: bug
-assignees: Id1eN0de
+assignees: ''
 
 ---
 
