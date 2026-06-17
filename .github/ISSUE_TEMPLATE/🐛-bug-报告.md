@@ -3,7 +3,7 @@ name: "\U0001F41B Bug 报告"
 about: 帮助我们不断完善，不断提高
 title: ''
 labels: bug
-assignees: ''
+assignees: Id1eN0de
 
 ---
 
