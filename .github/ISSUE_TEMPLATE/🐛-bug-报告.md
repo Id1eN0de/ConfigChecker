@@ -1,38 +1,25 @@
 ---
 name: "\U0001F41B Bug 报告"
-about: Create a report to help us improve
+about: 帮助我们不断完善，不断提高
 title: ''
-labels: ''
+labels: bug
 assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
-
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
-
-**Expected behavior**
-A clear and concise description of what you expected to happen.
-
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
-
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
-
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
-
-**Additional context**
-Add any other context about the problem here.
+**缺陷描述**
+简洁清晰地说明出现了什么问题。
+**复现操作步骤**
+复现该问题的操作流程：
+点击「……」
+出现报错 / 异常
+**预期正常效果**
+简洁清晰描述本应呈现的正常状态。
+**截图**
+如有相关截图，附上图片辅助说明问题。
+**电脑端环境（请填写以下信息）**
+操作系统：（例：Windows 11）
+模型信息：（例：deepseek ）
+版本号：（例：126）
+**补充说明**
+在此填写和该问题相关的其他额外信息。
