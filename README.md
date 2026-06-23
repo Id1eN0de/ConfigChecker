@@ -28,6 +28,8 @@
 - **基线库**: 
   - 检查基线库维护。
   - 通过维护检查内容（类似提示词），控制AI检查内容，从而更加精确地获得检查结果。
+- **AI助手**: 
+  - 以对话方式想AI下发任务,执行基线排查工作。
 - **设置**: 
   - 检查结果保存路径设置
   - 调试模式开关
@@ -42,42 +44,47 @@
 - **数据库**: sqlite
 
 ## 更新日志
-
-### v2.0.0
-
-* 整理检查项共计106项，包含网络设备、安全设备
-* 修改导入功能，针对id信息进行更新或增加
-* 增加内容分割，一定程度避免内容过长导致模型报错
-* 增加设备类型、设备品牌功能，修改type.ini文件即可
-* 修改baseline界面，改为表格，避免手搓组件的一些bug
-
-### v1.2.1
-
-* 增加主报告生成功能
-* 修改部分bug
-
-### v1.1.0
-* 增加基线库导入导出功能
-* 增加基线库模板，欢迎大家共同维护
-* 修改部分bug
-
-### v1.0.0
-
-* 基础版本主要功能
+[update.md](https://github.com/Id1eN0de/ConfigChecker/blob/main/update.md)
 
 ## 界面展示
 
 ### 配置检查
-<img width="827" height="551" alt="peizhi" src="https://github.com/user-attachments/assets/6b20dc47-9006-4f87-9518-0aa7a15ef526" />
+<img width="800" height="500" alt="peizhi" src="https://github.com/user-attachments/assets/86123671-f422-4ff9-a63d-409d377a0697" />
 
 ### 基线库
-<img width="827" height="551" alt="jixian" src="https://github.com/user-attachments/assets/35f32a1d-264a-4835-9c10-5fb68a84bdf1" />
+<img width="800" height="500" alt="jixian" src="https://github.com/user-attachments/assets/35105c46-a269-4bbe-9f79-fb191e1b32cb" />
+
+### AI助手
+<img width="801" height="500" alt="ai-1" src="https://github.com/user-attachments/assets/541916b7-b2f4-4b97-93ed-9fa9ad823553" />
+<img width="800" height="500" alt="ai-2" src="https://github.com/user-attachments/assets/d1b505eb-8253-4d93-ac76-e64740b3f975" />
 
 ### 设置
-<img width="827" height="551" alt="shezhi" src="https://github.com/user-attachments/assets/ca9cb85b-8db8-48aa-8447-9f7367782f59" />
+#### 基础设置
+<img width="800" height="500" alt="shezhi-jichu" src="https://github.com/user-attachments/assets/11014cf1-5bf6-4d3e-a3e1-42eee45ad92c" />
+
+#### 默认模型
+<img width="800" height="500" alt="shezhi-moren" src="https://github.com/user-attachments/assets/7a773f04-b92f-4e47-97e9-378c7ab897a4" />
+
+
+#### 模型设置
+<img width="800" height="500" alt="shezhi-moxing" src="https://github.com/user-attachments/assets/44a98c60-6dd8-46e1-b8e6-fd67d88e7c1f" />
+
+
+#### Agent
+<img width="800" height="500" alt="shezhi-agent" src="https://github.com/user-attachments/assets/2984122f-32d0-4697-977e-56d8993e1bc2" />
+
+#### 日志设置
+<img width="800" height="500" alt="shezhi-rizhi" src="https://github.com/user-attachments/assets/bb2c7e86-4fda-4d60-8bb6-1c2fa373c23d" />
+
+
+#### 关于我们
+<img width="800" height="500" alt="shezhi-about" src="https://github.com/user-attachments/assets/1ec2a6ee-2b46-4cd9-b2aa-b54f9154cadf" />
+
+
 
 ### 日志
-<img width="827" height="551" alt="rizhi" src="https://github.com/user-attachments/assets/ec2c2d73-4e25-493c-9b60-e8ecbad31b51" />
+<img width="800" height="500" alt="rizhi" src="https://github.com/user-attachments/assets/0a9581e2-a38e-409c-aadf-20b73d9358df" />
+
 
 ### 主报告
 <img width="827" height="1682" alt="zhubaogao" src="https://github.com/user-attachments/assets/11906700-71a6-4b93-bb1c-783d43ddbe85" />
