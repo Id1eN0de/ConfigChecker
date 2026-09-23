@@ -8,7 +8,7 @@
 绿色环保，解压即撸
 
 #### 特别说明
-本工具在原有基础上，增加了设备类型，功能不单单只针对网络设备，可以导出文本类配置文件的网络设备、主机设备、安全设备、数据库、中间件都可以用此工具检查，工具名称由NTconfigchecker改为ConfigChecker,同时仓库更名。
+本工具在原有基础上，增加了设备类型，功能不单单只针对网络设备，可以导出文本类配置文件的网络设备、安全设备等都可以用此工具检查，工具名称由NTconfigchecker改为ConfigChecker,同时仓库更名。
 
 ## 介绍
 这是一个基于 Python 和 PyQt6构建的基于AI大模型的设备安全基线排查工具。旨在为网络管理员、网络安全员、网络安全督查人员提供了一套强大的工具，根据配置的基线检查内容，利用AI大模型能力自动分析设备配置信息，找出不合规项，并提出整改意见。
@@ -18,8 +18,16 @@
 #### atomgit地址：https://atomgit.com/Id1eN0de/ConfigChecker
 
 ## 主要功能
-
-- **配置检查**: 
+- **仪表盘**: 
+  - 统计显示项目概况、资产统计、隐患统计、风险统计、本机状态、当前任务等信息
+- **资产台账**
+  - 对纳管设备信息进行管理
+  - 对纳管设备配置进行批量备份
+- **配置备份**
+  - 支持单台设备配置备份
+  - 配置文件查看及下载
+  - 配置文件对比
+- **配置检查**
   - 支持配置文件导入
   - 采用多线程机制（最大20线程）开展批量检测
   - 支持AI检测和脚本自动化检测模式切换（目前支持AI检测，脚本自动化检测还未整合）
@@ -28,15 +36,23 @@
 - **基线库**: 
   - 检查基线库维护。
   - 通过维护检查内容（类似提示词），控制AI检查内容，从而更加精确地获得检查结果。
-- **AI助手**: 
-  - 以对话方式想AI下发任务,执行基线排查工作。
-- **设置**: 
-  - 检查结果保存路径设置
-  - 调试模式开关
-  - Syslog日志服务器设置
-  - AI大模型设置
-
-
+- **隐患库**
+  - 对检查隐患形成隐患库，进行统一管理消缺。
+- **AI助手**:
+  - AI运维小助手，通过自然语言下达命令由AI小助手自行完成 
+- **设置**
+  - 基础设置
+    - 完成线程数量、调试模式、应用主题等设置
+  - 模型设置
+    - AI大模型设置
+  - Agent
+    - MCP设置：AI连接超时、工具循环次数设置
+    - Tools：MCP中内置的工具信息（不断添加）
+    - Skills:暂未，功能后续开放
+  - 接口设置（可定制）
+    - syslog设置，配置后日志同步发送至syslog服务器
+    - WebDav设置，配置后备份文件、检查报告同步发送至webdav服务器保存
+    - DM设置，配置后与管理工具（专用工具）进行资产信息同步
 ## 技术栈
 
 - **后端**: Python 3.10+, SQLModel.
@@ -44,59 +60,68 @@
 - **数据库**: sqlite
 
 ## 更新日志
-### v3.0.0
-
-- 参考当前主流AI工具排版优化界面，【日志】【设置】菜单移至左侧下方，消除手搓组件以及对应bug
-- 增加MCP架构，可通过【AI助手】界面以对话形式向大模型下达任务
+### v4.0.0
+- 增加项目管理模式，每个项目设置独立项目目录（./project），项目创建时自动创建，设备信息等数据库文件、配置备份文件、检查报告文件均存放在项目目录中。
+- 增加【仪表盘】模块，显示【项目概况】、【资产统计】、【隐患统计】、【风险统计】、【本机状态】、【当前任务】
+- 增加【工作台】模块，显示当前任务进度，任务执行日志
+- 增加【资产台账】模块，分类别（网络设备、安全设备等）管理台账信息。
+- 增加【网络设备】模块，针对网络设备开展【信息查询】【配置备份】【配置检查】
+- 增加【隐患库】模块，对每次检查隐患进行统一管理。
 - 【设置】模块优化
-  - 界面优化，增加【基础设置】【默认模型】【模型设置】【Agent】【日志设置】【关于我们】6个菜单，将原有设置功能分类布局（以下只说明新增设置功能）
-  - 【基础设置】增加【应用主题】设置，可选择【深色】、【浅色】、【跟随系统设置】三种主题配置
-  - 【默认模型】新增设置内容，选择模型设置中一已测试模型作为默认模型，用于AI助手调用（状态为未测试或测试失败的模型无法选择，此处配置与【配置检查】中模型选择不冲突）
-  - 【模型设置】修改布局方式
-  - 【Agent】罗列当前agent所配置的Tools和Skills信息（Skills功能暂未实现）（工具持续更新）
-  - 【日志设置】Syslog日志配置，功能未变
-  - 【关于我们】分为【关于我们】【支持与反馈】【社交账号】三个模块，点击相应按钮会跳转至github相应页面或弹窗显示信息
+  - 删除【默认模型】模块，将默认模型设置合并至模型设置中
+  - 【基础设置】：删除【备份路径】【报告路径】配置功能，备份路径、报告路径默认保存至项目目录对应的文件夹下；增加【线程设置】控制配置备份、配置检查等工作最大线程数量。
+  - 【接口设置】：增加webDav设置，启动后备份文件和检测报告将同步发送至WebDav指定路径保存。增加信息专业综合管理工具接口，启动后可完成台账信息同步
     
 更多日志请见：  [更新日志](https://github.com/Id1eN0de/ConfigChecker/blob/main/update.md)
 
 ## 界面展示
 
+### 项目管理
+
+<img width="900" height="647" alt="xiangmu" src="https://github.com/user-attachments/assets/b309bc3a-7066-41be-a815-80a0058613f3" />
+
+### 资产台账
+
+<img width="900" height="566" alt="zichan" src="https://github.com/user-attachments/assets/2cd0cc22-2823-4dfa-8f9a-db3975ee9413" />
+
+### 配置备份
+<img width="900" height="570" alt="peizhi" src="https://github.com/user-attachments/assets/40360467-b367-4b94-a768-0801a84d6340" />
+<img width="900" height="568" alt="peizhiduibi" src="https://github.com/user-attachments/assets/23ccaa5b-66eb-40f0-8d99-e92b0ff09dca" />
+
 ### 配置检查
-<img width="800" height="500" alt="peizhi" src="https://github.com/user-attachments/assets/86123671-f422-4ff9-a63d-409d377a0697" />
+<img width="900" height="568" alt="peizhijiancha" src="https://github.com/user-attachments/assets/f25ff612-ff19-4271-acb9-39aaeca13c59" />
 
 ### 基线库
-<img width="800" height="500" alt="jixian" src="https://github.com/user-attachments/assets/35105c46-a269-4bbe-9f79-fb191e1b32cb" />
+<img width="900" height="567" alt="jixian" src="https://github.com/user-attachments/assets/9838824e-57ea-4364-89d8-e3cf13feff76" />
+
+### 隐患库
+<img width="900" height="567" alt="yinhuanku" src="https://github.com/user-attachments/assets/47d22e00-4529-4b28-9609-a11e1985ea19" />
 
 ### AI助手
-<img width="801" height="500" alt="ai-1" src="https://github.com/user-attachments/assets/541916b7-b2f4-4b97-93ed-9fa9ad823553" />
-<img width="800" height="500" alt="ai-2" src="https://github.com/user-attachments/assets/d1b505eb-8253-4d93-ac76-e64740b3f975" />
+<img width="900" height="567" alt="AIzhushou" src="https://github.com/user-attachments/assets/399b9139-ef45-4869-b492-7701fcba9da6" />
 
 ### 设置
-#### 基础设置
-<img width="800" height="500" alt="shezhi-jichu" src="https://github.com/user-attachments/assets/11014cf1-5bf6-4d3e-a3e1-42eee45ad92c" />
 
-#### 默认模型
-<img width="800" height="500" alt="shezhi-moren" src="https://github.com/user-attachments/assets/7a773f04-b92f-4e47-97e9-378c7ab897a4" />
+基础设置
 
-
-#### 模型设置
-<img width="800" height="500" alt="shezhi-moxing" src="https://github.com/user-attachments/assets/44a98c60-6dd8-46e1-b8e6-fd67d88e7c1f" />
+<img width="900" height="567" alt="jichushezhi" src="https://github.com/user-attachments/assets/d4100b8c-0419-44cc-8d2c-2c14c6c9390c" />
 
 
-#### Agent
-<img width="800" height="500" alt="shezhi-agent" src="https://github.com/user-attachments/assets/2984122f-32d0-4697-977e-56d8993e1bc2" />
+模型设置
 
-#### 日志设置
-<img width="800" height="500" alt="shezhi-rizhi" src="https://github.com/user-attachments/assets/bb2c7e86-4fda-4d60-8bb6-1c2fa373c23d" />
+<img width="900" height="568" alt="moxingshezhi" src="https://github.com/user-attachments/assets/6ff8137b-6b0b-4e39-9454-dd74efb5d469" />
 
 
-#### 关于我们
-<img width="800" height="500" alt="shezhi-about" src="https://github.com/user-attachments/assets/1ec2a6ee-2b46-4cd9-b2aa-b54f9154cadf" />
+Agent设置
+
+<img width="900" height="571" alt="agentshezhi" src="https://github.com/user-attachments/assets/d3e72e13-8668-4941-bdfd-6fc9b61f2d03" />
 
 
+接口设置
 
-### 日志
-<img width="800" height="500" alt="rizhi" src="https://github.com/user-attachments/assets/0a9581e2-a38e-409c-aadf-20b73d9358df" />
+<img width="900" height="567" alt="jiekoushezhi" src="https://github.com/user-attachments/assets/9574ee78-378e-402a-86ac-8146b8ec64bd" />
+
+
 
 
 ### 主报告
